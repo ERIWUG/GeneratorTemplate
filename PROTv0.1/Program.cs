@@ -2,6 +2,7 @@
 
 
 var mas = new MyData[]{
+    new("элементами дороги",0,false,false),
     new("Какие из перечисленных элементов являются элементами дороги?",1,false,false),
     new("Какие из перечисленных элементов(при их наличии) являются элементами дороги?",1,false,false),
     new("Что является элементом дороги?",1,false,false),
@@ -32,7 +33,8 @@ var mas = new MyData[]{
 
     };
 Random n = new Random();
-Generator.Generate(mas,5,n.Next(8));
+Generator.GenerateLinear(mas,5,2,false);
+
 
 
 
