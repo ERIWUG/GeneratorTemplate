@@ -20,5 +20,7 @@ namespace PROTv0._1
             this.isNeg = isNeg;
             this.isTrue = isTrue;
         }
+
+        
     }
 }

@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,8 +73,8 @@ namespace PROTv0._1
 
             while (amount-- > 0)
             {
-                List<int> mT = intTrueAns;
-                List<int> mF = intFalseAns;
+                List<int> mT = intTrueAns.Slice(0, intTrueAns.Count);
+                List<int> mF = intFalseAns.Slice(0, intTrueAns.Count);
                 int k = rand.Next(2, ogr);
 
                 int IQ = rand.Next(intQuest.Count);

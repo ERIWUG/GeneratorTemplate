@@ -33,7 +33,7 @@ var mas = new MyData[]{
 
     };
 Random n = new Random();
-Generator.GenerateLinear(mas,5,2,false);
+Generator.GenerateLinear(mas,5,20,false);
 
 
 
