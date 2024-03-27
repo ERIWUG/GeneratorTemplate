@@ -26,7 +26,6 @@ namespace PROTv0._1
         /// <param name="flag">bool is Negative?</param>>
         public static void GenerateLinear(MyData[] mas,int ogr,int amount, bool flag) {
             Random rand = new Random();
-            int amQuest = 0;
             List<int> intTrueAns = new List<int> ();
             List<int> intFalseAns = new List<int> ();
             List<int> intQuest = new List<int> ();
@@ -43,11 +42,11 @@ namespace PROTv0._1
                     }
                     else
                     {
-                        if (mas[i].isTrue)
+                        if (mas[i].isTrue && mas[i].priz==2)
                         {
                             intTrueAns.Add (i);
                         }
-                        else
+                        if (!mas[i].isTrue && mas[i].priz == 2)
                         {
                             intFalseAns.Add (i);
                         }
@@ -74,12 +73,12 @@ namespace PROTv0._1
             while (amount-- > 0)
             {
                 List<int> mT = intTrueAns.Slice(0, intTrueAns.Count);
-                List<int> mF = intFalseAns.Slice(0, intTrueAns.Count);
+                List<int> mF = intFalseAns.Slice(0, intFalseAns.Count);
                 int k = rand.Next(2, ogr);
 
                 int IQ = rand.Next(intQuest.Count);
                 var AQ = mas[intQuest[IQ]];
-                intQuest.RemoveAt(IQ);
+                //intQuest.RemoveAt(IQ);
 
                 Console.WriteLine($"{AQ.text}");
                 if (AQ.isNeg)
@@ -92,6 +91,7 @@ namespace PROTv0._1
                 }
 
             }
+            Console.WriteLine();
 
         }
         /// <summary>
@@ -132,7 +132,7 @@ namespace PROTv0._1
 
             }
 
-
+            Console.WriteLine();
         }
 
         /// <summary>
@@ -161,11 +161,11 @@ namespace PROTv0._1
                     }
                     else
                     {
-                        if (mas[i].isTrue)
+                        if (mas[i].isTrue && mas[i].priz == 2)
                         {
                             intTrueAns.Add(i);
                         }
-                        else
+                        if (!mas[i].isTrue && mas[i].priz == 2)
                         {
                             intFalseAns.Add(i);
                         }
@@ -175,7 +175,7 @@ namespace PROTv0._1
 
             void GenerateQuest1(List<int> a, List<int> b, int k)
             {
-                Console.WriteLine($"1){mas[a[rand.Next(a.Count)]].text}\n");
+                Console.WriteLine($"1){mas[a[rand.Next(a.Count)]].text}");
                 k--;
                 while (k-- > 0)
                 {
@@ -183,7 +183,7 @@ namespace PROTv0._1
                     var AA = mas[b[IA]];
                     b.RemoveAt(IA);
 
-                    Console.WriteLine($"T){AA.text}\n");
+                    Console.WriteLine($"T){AA.text}");
                 }
             }
 
@@ -194,8 +194,8 @@ namespace PROTv0._1
                 if (allOrNo == 0)//если как обчно
                 {
                     GenerateQuest1(a, b, k - 2);
-                    Console.WriteLine($"T)Все перечисленное\n");
-                    Console.WriteLine($"T)Ничего из перечисленного\n");
+                    Console.WriteLine($"T)Все перечисленное");
+                    Console.WriteLine($"T)Ничего из перечисленного");
                 }
                 else if (allOrNo == 1)//если все являются
                 {
@@ -205,10 +205,10 @@ namespace PROTv0._1
                         var AA = mas[a[IA]];
                         a.RemoveAt(IA);
 
-                        Console.WriteLine($"T){AA.text}\n");
+                        Console.WriteLine($"T){AA.text}");
                     }
-                    Console.WriteLine($"1)Все перечисленное\n");
-                    Console.WriteLine($"T)Ничего из перечисленного\n");
+                    Console.WriteLine($"1)Все перечисленное");
+                    Console.WriteLine($"T)Ничего из перечисленного");
                 }
                 else if (allOrNo == 2)//если все не являются
                 {
@@ -218,10 +218,10 @@ namespace PROTv0._1
                         var AA = mas[b[IA]];
                         b.RemoveAt(IA);
 
-                        Console.WriteLine($"T){AA.text}\n");
+                        Console.WriteLine($"T){AA.text}");
                     }
-                    Console.WriteLine($"T)Все перечисленное\n");
-                    Console.WriteLine($"1)Ничего из перечисленного\n");
+                    Console.WriteLine($"T)Все перечисленное");
+                    Console.WriteLine($"1)Ничего из перечисленного");
                 }
 
             }
@@ -237,9 +237,9 @@ namespace PROTv0._1
                 int k = rand.Next(4, ogr);
                 int IQ = rand.Next(intQuest.Count);
                 var AQ = mas[intQuest[IQ]];
-                intQuest.RemoveAt(IQ);
+                //intQuest.RemoveAt(IQ);
 
-                Console.WriteLine($"{AQ.text}\n");
+                Console.WriteLine($"{AQ.text}");
                 if (AQ.isNeg)
                 {
                     GenerateQuest(mF, mT, k);
@@ -250,7 +250,7 @@ namespace PROTv0._1
                 }
 
             }
-
+            Console.WriteLine();
         }
     }
 }
