@@ -253,8 +253,6 @@ namespace PROTv0._1
             Console.WriteLine();
         }
 
-        //моё_!_!_!_!_!_!_!_!_!_!_!__!!__!_!_!_!_!_!__!_!_!__!_!__!_!__!_!_!__!_!_!_!__!_!_!_!_!_!__!
-
         public static void GenerateGroup(MyData[] mas, int ogr, int amount)
         {
             Random rand = new Random();
@@ -327,7 +325,7 @@ namespace PROTv0._1
                     int IA = rand.Next(full.Count);
                     var AA = mas[full[IA]];
                     full.RemoveAt(IA);
-                    Console.WriteLine($"----){AA.text},  {AA.isTrue}\n");
+                    Console.WriteLine($"----{AA.text},  {AA.isTrue}\n");
                     AllAnsw.Add(AA.text);
                     if (sign)
                     {
@@ -365,10 +363,14 @@ namespace PROTv0._1
 
 
                 }
+                int n = 0;
                 foreach (string str in GroupOfAnswers)
                 {
-                    Console.WriteLine(str);
+                    n++;
+                    Console.WriteLine(Convert.ToString(n) + " " + str);
                 }
+                Console.WriteLine();
+
                 GroupOfAnswers.Clear();
             }
 
@@ -378,9 +380,7 @@ namespace PROTv0._1
             while (amount-- > 0)
             {
                 Console.WriteLine($"{amount}");
-                List<int> mT = intTrueAns;
-                List<int> mF = intFalseAns;
-                List<int> Answers = intAnswer;
+                List<int> Answers = new List<int>(intAnswer);
                 int k = rand.Next(2, ogr);
 
                 int IQ = rand.Next(intQuest.Count);
@@ -390,7 +390,6 @@ namespace PROTv0._1
                 CorrectAnswers.Clear();
 
                 Console.WriteLine($"{AQ.text}\n");
-                int ppp = 0;
                 if (AQ.isNeg)
                 {
                     GenerateAnswers(Answers, false, k);
