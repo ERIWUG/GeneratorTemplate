@@ -33,7 +33,7 @@ var mas = new MyData[]{
 
     };
 Random n = new Random();
-Generator.GenerateEnum(mas,5,20);
+Generator.GenerateGroup(mas,5,20);
 
 
 
