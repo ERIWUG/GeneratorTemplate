@@ -16,7 +16,50 @@ namespace PROTv0._1
     /// </summary>
     internal static class Generator
     {
-        
+
+        /// <summary>
+        /// Генерация билета с указанным числом вопросов
+        /// </summary>
+        /// <param name="mas"></param>
+        /// <param name="questAmount">число вопросов в билете</param>
+        public static void GenerateTicket(MyData[] mas, int questAmount)
+        {
+            Random rand = new Random();
+            int countOfTypes = 4;//число типов вопросов (их  5 потом будет)
+            int prevType = -1;
+            int[] questions = new int[countOfTypes];
+            for (int i = 0; i < questAmount; i++)
+            {
+                int type;
+                do
+                {
+                    type = rand.Next(countOfTypes);
+                }
+                while (questions[type] > questAmount / countOfTypes);
+                // if (type == prevType) type = rand.Next(countOfTypes);
+                switch (type)
+                {
+                    case 0:
+                        GenerateLinear(mas, 5, 1, true);
+                        questions[0]++;
+                        break;
+                    case 1:
+                        GenerateLinear(mas, 5, 1, false);
+                        questions[1]++;
+                        break;
+                    case 2:
+                        GenerateEnum(mas, 5, 1);
+                        questions[2]++;
+                        break;
+                    case 3:
+                        GenerateIsIt(mas, 1);
+                        questions[3]++;
+                        break;
+                }
+
+            }
+        }
+
         /// <summary>
         /// Function that generate and print linear question, can generate true and false questions
         /// </summary>
