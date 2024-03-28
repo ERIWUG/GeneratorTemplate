@@ -33,7 +33,7 @@ var mas = new MyData[]{
 
     };
 Random n = new Random();
-Generator.GenerateGroup(mas,5,20);
+Generator.GenerateGroup(mas,5,8);
 
 
 

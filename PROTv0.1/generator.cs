@@ -178,13 +178,129 @@ namespace PROTv0._1
 
             Console.WriteLine();
         }
-        /// <summary>
-        /// 
-        /// </summary>
+      
+
+        /// <param name="mas">array of data</param>
+        /// <param name="ogr">integer that used in random (less number)</param>
+        /// <param name="amount">integer represent amount of generated questions</param>>
+        public static void GenerateEnum(MyData[] mas, int ogr, int amount)
+        {
+            Random rand = new Random();
+            int amQuest = 0;
+            List<int> intTrueAns = new List<int>();
+            List<int> intFalseAns = new List<int>();
+            List<int> intQuest = new List<int>();
+
+            void ParseData(MyData[] mas)
+            {
+                int i = -1;
+                while (i++ < mas.Length - 1)
+                {
+
+                    if (mas[i].priz == 1)
+                    {
+                        intQuest.Add(i);
+                    }
+                    else
+                    {
+                        if (mas[i].isTrue && mas[i].priz == 2)
+                        {
+                            intTrueAns.Add(i);
+                        }
+                        if (!mas[i].isTrue && mas[i].priz == 2)
+                        {
+                            intFalseAns.Add(i);
+                        }
+                    }
+                }
+            }
+
+            void GenerateQuest1(List<int> a, List<int> b, int k)
+            {
+                Console.WriteLine($"1){mas[a[rand.Next(a.Count)]].text}");
+                k--;
+                while (k-- > 0)
+                {
+                    int IA = rand.Next(b.Count);
+                    var AA = mas[b[IA]];
+                    b.RemoveAt(IA);
+
+                    Console.WriteLine($"T){AA.text}");
+                }
+            }
+
+            void GenerateQuest(List<int> a, List<int> b, int k)
+            {
+
+                int allOrNo = rand.Next(3);
+                if (allOrNo == 0)//если как обчно
+                {
+                    GenerateQuest1(a, b, k - 2);
+                    Console.WriteLine($"T)Все перечисленное");
+                    Console.WriteLine($"T)Ничего из перечисленного");
+                }
+                else if (allOrNo == 1)//если все являются
+                {
+                    while (k-- > 0)
+                    {
+                        int IA = rand.Next(a.Count);
+                        var AA = mas[a[IA]];
+                        a.RemoveAt(IA);
+
+                        Console.WriteLine($"T){AA.text}");
+                    }
+                    Console.WriteLine($"1)Все перечисленное");
+                    Console.WriteLine($"T)Ничего из перечисленного");
+                }
+                else if (allOrNo == 2)//если все не являются
+                {
+                    while (k-- > 0)
+                    {
+                        int IA = rand.Next(b.Count);
+                        var AA = mas[b[IA]];
+                        b.RemoveAt(IA);
+
+                        Console.WriteLine($"T){AA.text}");
+                    }
+                    Console.WriteLine($"T)Все перечисленное");
+                    Console.WriteLine($"1)Ничего из перечисленного");
+                }
+
+            }
+
+            ParseData(mas);
+
+            while (amount-- > 0)
+            {
+                //  Console.WriteLine($"{amount}");
+                Console.WriteLine();
+                List<int> mT = intTrueAns.Slice(0, intTrueAns.Count);
+                List<int> mF = intFalseAns.Slice(0, intFalseAns.Count);
+                int k = rand.Next(4, ogr);
+                int IQ = rand.Next(intQuest.Count);
+                var AQ = mas[intQuest[IQ]];
+                //intQuest.RemoveAt(IQ);
+
+                Console.WriteLine($"{AQ.text}");
+                if (AQ.isNeg)
+                {
+                    GenerateQuest(mF, mT, k);
+                }
+                else
+                {
+                    GenerateQuest(mT, mF, k);
+                }
+
+            }
+            Console.WriteLine();
+        }
+
+
         /// <param name="mas"></param>
         /// <param name="ogr"></param>
         /// <param name="amount"></param>
         /// <Author>GAY PIDOR</Author>>
+
         public static void GenerateGroup(MyData[] mas, int ogr, int amount)
         {
             Random rand = new Random();
@@ -257,7 +373,7 @@ namespace PROTv0._1
                     int IA = rand.Next(full.Count);
                     var AA = mas[full[IA]];
                     full.RemoveAt(IA);
-                    Console.WriteLine($"----){AA.text},  {AA.isTrue}\n");
+                    Console.WriteLine($"----{AA.text},  {AA.isTrue}\n");
                     AllAnsw.Add(AA.text);
                     if (sign)
                     {
@@ -295,10 +411,14 @@ namespace PROTv0._1
 
 
                 }
+                int n = 0;
                 foreach (string str in GroupOfAnswers)
                 {
-                    Console.WriteLine(str);
+                    n++;
+                    Console.WriteLine(Convert.ToString(n) + " " + str);
                 }
+                Console.WriteLine();
+
                 GroupOfAnswers.Clear();
             }
 
@@ -308,9 +428,7 @@ namespace PROTv0._1
             while (amount-- > 0)
             {
                 Console.WriteLine($"{amount}");
-                List<int> mT = intTrueAns;
-                List<int> mF = intFalseAns;
-                List<int> Answers = intAnswer;
+                List<int> Answers = new List<int>(intAnswer);
                 int k = rand.Next(2, ogr);
 
                 int IQ = rand.Next(intQuest.Count);
@@ -320,7 +438,6 @@ namespace PROTv0._1
                 CorrectAnswers.Clear();
 
                 Console.WriteLine($"{AQ.text}\n");
-                int ppp = 0;
                 if (AQ.isNeg)
                 {
                     GenerateAnswers(Answers, false, k);
