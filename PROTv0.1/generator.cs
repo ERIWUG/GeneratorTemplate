@@ -57,6 +57,11 @@ namespace PROTv0._1
                         GenerateIsIt(mas, 1);
                         questions[3]++;
                         break;
+
+                    case 4:
+                        GenerateGroup(mas, 5, 1);
+                        questions[4]++;
+                        break;
                 }
 
             }
