@@ -189,7 +189,7 @@ namespace PROTv0._1
         /// <param name="mas"></param>
         /// <param name="ogr"></param>
         /// <param name="amount"></param>
-        /// <Author>Veremey</Author>>
+        /// <Author>Alex Veremeychik</Author>>
 
         public static void GenerateGroup(MyData[] mas, int ogr, int amount)
         {
@@ -323,7 +323,6 @@ namespace PROTv0._1
 
                 int IQ = rand.Next(intQuest.Count);
                 var AQ = mas[intQuest[IQ]];
-                intQuest.RemoveAt(IQ);
                 AllAnsw.Clear();
                 CorrectAnswers.Clear();
 
