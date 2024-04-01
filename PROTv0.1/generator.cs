@@ -90,13 +90,16 @@ namespace PROTv0._1
         /// <param name="amount">integer represent amount of generated questions</param>>
         /// <param name="mark">bool is Negative?</param>>
         /// <Author>Belyi Egor</Author>
-        public static void GenerateLinear(MyData[] mas, int ogr, int amount, bool mark)
+        public static Question GenerateLinear(MyData[] mas, int ogr, int amount, bool flag)
         {
             Random rand = new Random();
             List<int> intTrueAns = new List<int>();
             List<int> intFalseAns = new List<int>();
             List<int> intQuest = new List<int>();
-
+            List<string> ans = new List<string>();
+            int IndAnswer = 0;
+            string AQQQQ=null;
+            string MyHash = "DBNAME-";
             void ParseData(MyData[] mas)
             {
                 int i = -1;
@@ -123,15 +126,18 @@ namespace PROTv0._1
 
             void GenerateQuest(List<int> a, List<int> b, int k)
             {
-                Console.WriteLine($"1){mas[a[rand.Next(a.Count)]].text}");
-                k--;
+                int i = a[rand.Next(a.Count)];
+                ans.Add(mas[i].text);
+                //Console.WriteLine($"1){mas[a[rand.Next(a.Count)]].text}");
+                MyHash += $"{i}-";
                 while (k-- > 0)
                 {
                     int IA = rand.Next(b.Count);
                     var AA = mas[b[IA]];
                     b.RemoveAt(IA);
-
-                    Console.WriteLine($"T){AA.text}");
+                    ans.Add(AA.text);
+                    MyHash += $"{b[IA]}-";
+                    //Console.WriteLine($"T){AA.text}");
                 }
             }
 
@@ -145,10 +151,11 @@ namespace PROTv0._1
 
                 int IQ = rand.Next(intQuest.Count);
                 var AQ = mas[intQuest[IQ]];
+                MyHash += $"{IQ}-{k}-";
                 //intQuest.RemoveAt(IQ);
-
-                Console.WriteLine($"{AQ.text}");
-                if (!AQ.flag)
+                AQQQQ = AQ.text;
+                //Console.WriteLine($"{AQ.text}");
+                if (AQ.isNeg)
                 {
                     GenerateQuest(mF, mT, k);
                 }
@@ -158,7 +165,7 @@ namespace PROTv0._1
                 }
 
             }
-            Console.WriteLine();
+            return new Question(AQQQQ, ans.ToArray(), IndAnswer, MyHash+"0");
 
         }
         /// <summary>
