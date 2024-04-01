@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -73,7 +74,7 @@ namespace PROTv0._1
                 }
                 ans.Add(ANSW1);
                 ans.Add(ANSW2);
-                questions[l] = new Question(AQQQQ, ans.ToArray(), IndAnswer, MyHash + "0");
+                questions[l] = new Question(AQQQQ, ans.ToArray(), IndAnswer, MyHash + IndAnswer);
                 l++;
             }
 
@@ -84,14 +85,14 @@ namespace PROTv0._1
                 int allOrNo = rand.Next(3);
                 if (allOrNo == 0)//если как обчно
                 {
-                 GenerateQuest1(a, b, k - 2);
+                 GenerateQuest1(a, b, k-1);
                     //   Console.WriteLine($"T)Все перечисленное");
                     //    Console.WriteLine($"T)Ничего из перечисленного");
                 }
                 else if (allOrNo == 1)//если все являются
                 {
 
-                    MyHash += $"{k-2}-";
+                  //  MyHash += $"{k-2}-";
                     while (k-- > 0)
                     {
                         int IA = rand.Next(a.Count);
@@ -106,12 +107,12 @@ namespace PROTv0._1
                     //     Console.WriteLine($"T)Ничего из перечисленного");
                     ans2.Add(ANSW1);
                     ans2.Add(ANSW2);
-                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk-2, MyHash + "0");
+                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk-2, MyHash + "A");
                     l++;
                 }
                 else if (allOrNo == 2)//если все не являются
                 {
-                    MyHash += $"{k-1}-";
+                  //  MyHash += $"{k-1}-";
                     while (k-- > 0)
                     {
                         int IA = rand.Next(b.Count);
@@ -125,7 +126,7 @@ namespace PROTv0._1
                     ans2.Add(ANSW2);
                   //  Console.WriteLine($"T)Все перечисленное");
                    // Console.WriteLine($"1)Ничего из перечисленного");
-                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk-1, MyHash + "0");
+                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk-1, MyHash + "B");
                     l++;
                 }
 
@@ -144,7 +145,7 @@ namespace PROTv0._1
                 int IQ = rand.Next(intQuest.Count);
                 var AQ = mas[intQuest[IQ]];
                 //intQuest.RemoveAt(IQ);
-                MyHash += $"{IQ}-{k}-";
+                MyHash += $"{IQ}-{k+2}-";
                 //intQuest.RemoveAt(IQ);
                 AQQQQ = AQ.text;
              //   Console.WriteLine($"{AQ.text}");
@@ -184,6 +185,7 @@ namespace PROTv0._1
             string MyHash = "DBNAME-G1-";
             String ANSW1 = "Все перечисленное.";
             String ANSW2 = "Ничего из перечисленного";
+            string myHash;
 
             void ParseData(MyData[] mas)
             {
@@ -211,30 +213,18 @@ namespace PROTv0._1
 
             void GenerateQuest1(List<int> a, List<int> b, int k)
             {
+                int kk = k;
                 ans.Clear();
                 int i = a[rand.Next(a.Count)];
                 ans.Add(mas[i].text);
                 //Console.WriteLine($"1){mas[a[rand.Next(a.Count)]].text}");
-                MyHash += $"{i}-";
+                myHash += $"{i}-";
                 // Console.WriteLine($"1){mas[a[rand.Next(a.Count)]].text}");
                 List<int> appearedAnswers = new List<int>();
                 int ca = 0;
                 while (k-- > 0)
                 {
-                    if (b.Count == 0)
-                    {
-                        if (ca < 2)//для того, чтобы было минимум 2 варианта ответа
-                        {
-                            b = intTrueAns.Slice(0, intFalseAns.Count);
-                            appearedAnswers.ForEach(delegate (int index)
-                            {
-                                b.Remove(index);
-                            });
-                            k++;
-                        }
-                        else
-                            break;
-                    }
+                    if (b.Count == 0) break;
                     int IA = rand.Next(b.Count);
                     var AA = mas[b[IA]];
                     if (AA.probability != 1)
@@ -247,7 +237,8 @@ namespace PROTv0._1
                             ca++;
                             appearedAnswers.Add(b[IA]);
                             ans.Add(AA.text);
-                            MyHash += $"{b[IA]}-";
+                            myHash += $"{b[IA]}-";
+                            b.RemoveAt(IA);
                         }
                         else k++;
                     }
@@ -257,10 +248,15 @@ namespace PROTv0._1
                         ca++;
                         appearedAnswers.Add(b[IA]);
                         ans.Add(AA.text);
-                        MyHash += $"{b[IA]}-";
+                        myHash += $"{b[IA]}-";
+                        b.RemoveAt(IA);
                     }
-                    b.RemoveAt(IA);
+                    
                 }
+                ans.Add(ANSW1);
+                ans.Add(ANSW2);
+                questions[l] = new Question(AQQQQ, ans.ToArray(), IndAnswer, myHash + IndAnswer);
+                l++;
             }
 
             void GenerateQuest(List<int> a, List<int> b, int k)
@@ -270,13 +266,9 @@ namespace PROTv0._1
                 int allOrNo = rand.Next(3);
                 if (allOrNo == 0)//если как обчно
                 {
-                    GenerateQuest1(a, b, k);
-                    ans2.Add(ANSW1);
-                    ans2.Add(ANSW2);
+                    GenerateQuest1(a, b, k-2);
                     //   Console.WriteLine($"T)Все перечисленное");
-                    //   Console.WriteLine($"T)Ничего из перечисленного");
-                    questions[l] = new Question(AQQQQ, ans2.ToArray(), k - 1, MyHash + "0");
-                    l++;
+                    //   Console.WriteLine($"T)Ничего из перечисленного");                
                 }
                 else if (allOrNo == 1)//если все являются
                 {
@@ -284,20 +276,7 @@ namespace PROTv0._1
                     int ca = 0;
                     while (k-- > 0)
                     {
-                        if (a.Count == 0)
-                        {
-                            if (ca < 2)//для того, чтобы было минимум 2 варианта ответа
-                            {
-                                a = intTrueAns.Slice(0, intTrueAns.Count);
-                                appearedAnswers.ForEach(delegate (int index)
-                                {
-                                    a.Remove(index);
-                                });
-                                k++;
-                            }
-                            else
-                                break;
-                        }
+                        if (a.Count == 0) break;
                         int IA = rand.Next(a.Count);
                         var AA = mas[a[IA]];
                         if (AA.probability != 1)
@@ -307,29 +286,31 @@ namespace PROTv0._1
                             if (rnd == 1)
                             {
                                 ans2.Add(AA.text);
-                                MyHash += $"{a[IA]}-";
+                                myHash += $"{a[IA]}-";
                       //          Console.WriteLine($"T){AA.text}");
                                 ca++;
                                 appearedAnswers.Add(a[IA]);
+                                a.RemoveAt(IA);
                             }
                             else k++;
                         }
                         else
                         {
                             ans2.Add(AA.text);
-                            MyHash += $"{a[IA]}-";
+                            myHash += $"{a[IA]}-";
                       //      Console.WriteLine($"T){AA.text}");
                             ca++;
                             appearedAnswers.Add(a[IA]);
+                            a.RemoveAt(IA);
                         }
-                        a.RemoveAt(IA);
+                       
 
                     }
                     ans2.Add(ANSW1);
                     ans2.Add(ANSW2);
                     //    Console.WriteLine($"1)Все перечисленное");
                     //    Console.WriteLine($"T)Ничего из перечисленного");
-                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk-2, MyHash + "0");
+                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk-2, myHash + "A");
                     l++;
                 }
                 else if (allOrNo == 2)//если все не являются
@@ -338,21 +319,7 @@ namespace PROTv0._1
                     int ca = 0;
                     while (k-- > 0)
                     {
-                        if (b.Count == 0)
-                        {
-                            if (ca < 2)//для того, чтобы было минимум 2 варианта ответа
-                            {
-
-                                b = intFalseAns.Slice(0, intFalseAns.Count);
-                                appearedAnswers.ForEach(delegate (int index)
-                                {
-                                    b.Remove(index);
-                                });
-                                k++;
-                            }
-                            else
-                                break;
-                        }
+                        if (b.Count == 0) break;
                         int IA = rand.Next(b.Count);
                         var AA = mas[b[IA]];
                         if (AA.probability != 1)
@@ -365,7 +332,8 @@ namespace PROTv0._1
                                 ca++;
                                 appearedAnswers.Add(b[IA]);
                                 ans2.Add(AA.text);
-                                MyHash += $"{b[IA]}-";
+                                myHash += $"{b[IA]}-";
+                                b.RemoveAt(IA);
                             }
                             else k++;
                         }
@@ -373,11 +341,13 @@ namespace PROTv0._1
                         {
                      //       Console.WriteLine($"T){AA.text}");
                             ca++;
+
                             appearedAnswers.Add(b[IA]);
                             ans2.Add(AA.text);
-                            MyHash += $"{b[IA]}-";
+                            myHash += $"{b[IA]}-";
+                            b.RemoveAt(IA);
                         }
-                        b.RemoveAt(IA);
+                      
                        
 
                     }
@@ -385,7 +355,7 @@ namespace PROTv0._1
                     ans2.Add(ANSW2);
                     //    Console.WriteLine($"T)Все перечисленное");
                     //    Console.WriteLine($"1)Ничего из перечисленного");
-                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk-1, MyHash + "0");
+                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk-1, myHash + "B");
                     l++;
                 }
 
@@ -395,15 +365,18 @@ namespace PROTv0._1
 
             while (amount-- > 0)
             {
+                myHash = MyHash;
                 //  Console.WriteLine($"{amount}");
              //   Console.WriteLine();
                 List<int> mT = intTrueAns.Slice(0, intTrueAns.Count);
                 List<int> mF = intFalseAns.Slice(0, intFalseAns.Count);
-                int k = rand.Next(2, ogr);
+                     int k = rand.Next(2, ogr);
+                //int k = ogr-1;
                 int IQ = rand.Next(intQuest.Count);
                 var AQ = mas[intQuest[IQ]];
                 //intQuest.RemoveAt(IQ);
                 AQQQQ = AQ.text;
+                myHash += $"{IQ}-{k + 2}-";
                 //   Console.WriteLine($"{AQ.text}");
                 if (!AQ.flag)
                 {
