@@ -78,7 +78,6 @@ Random n = new Random();
 Generator.GenerateLinear(mas2, 5, 10, false);
 //Generator.GenerateEnum(mas2, 5, 10);
 Question q = new Question("sd", null, 1, "sdas");
-Question []qq =Generator.GenerateEnum(mas, 5, 10); qq[0].print();
 
 
 
