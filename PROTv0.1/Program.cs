@@ -75,18 +75,24 @@ var mas2 = new MyDataWithProbability[]{
     new("В обратном направлении", 2, false, 0.5)*/
     };
 Random n = new Random();
-Question[] q = Generator.GenerateEnum(mas2, 4, 5);
-for (int i=0; i<q.Length; i++) q[i].print();
-/*Console.WriteLine("8 вопросов, 19 ответов");
-Console.WriteLine("generateLinear, по 2 варианта ответа === "+ PowerCalculator.powerLinear(8, 19, 2));
-Console.WriteLine("generateLinear, по 3 варианта ответа === " + PowerCalculator.powerLinear(8, 19, 3));
-Console.WriteLine("generateLinear, по 4 варианта ответа === " + PowerCalculator.powerLinear(8, 19, 4));
-Console.WriteLine("generateIsIt  === " + PowerCalculator.powerIsIt(8, 19));
-Console.WriteLine("generateLinear, по 4 варианта ответа === " + PowerCalculator.powerEnum(8, 19, 4));
-Console.WriteLine("generateLinear, по 5 варианта ответа === " + PowerCalculator.powerEnum(8, 19, 5));
-Console.WriteLine("generateLinear, по 6 варианта ответа === " + PowerCalculator.powerEnum(8, 19, 6));
-Console.WriteLine("generateGroup, по 2 варианта ответа === " + PowerCalculator.powerGroup(8, 19, 2));
-Console.WriteLine("generateGroup, по 3 варианта ответа === " + PowerCalculator.powerGroup(8, 19, 3));
-Console.WriteLine("generateGroup, по 4 варианта ответа === " + PowerCalculator.powerGroup(8,19,4));
-Console.WriteLine("generateGroup, по 5 варианта ответа === " + PowerCalculator.powerGroup(8, 19, 5));*/
+
+
+
+Question[] q =  Generator.GenerateLinear(mas,5,10,true);
+
+foreach(var l in q)
+{
+    Console.WriteLine(l.QuestionHash);
+    foreach(var t in l.answers)
+    {
+        Console.WriteLine(t);
+    }
+
+}
+
+
+
+
+
+
 

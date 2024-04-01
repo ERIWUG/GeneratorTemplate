@@ -63,9 +63,10 @@ namespace PROTv0._1
                 {
                     int IA = rand.Next(b.Count);
                     var AA = mas[b[IA]];
-                    b.RemoveAt(IA);
+                    
                     ans.Add(AA.text);
                     MyHash += $"{b[IA]}-";
+                    b.RemoveAt(IA);
                     //Console.WriteLine($"T){AA.text}");
                 }
                 questions[l] = new Question(AQQQQ, ans.ToArray(), IndAnswer, MyHash + "0");
@@ -83,7 +84,7 @@ namespace PROTv0._1
 
                 int IQ = rand.Next(intQuest.Count);
                 var AQ = mas[intQuest[IQ]];
-                MyHash += $"{IQ}-{k}-";
+                MyHash += $"{IQ}-{k+1}-";
                 //intQuest.RemoveAt(IQ);
                 AQQQQ = AQ.text;
                 //Console.WriteLine($"{AQ.text}");
@@ -190,7 +191,7 @@ namespace PROTv0._1
                 int k = rand.Next(2, ogr);
                 int IQ = rand.Next(intQuest.Count);
                 var AQ = mas[intQuest[IQ]];
-                MyHash += $"{IQ}-{k}-";
+                MyHash += $"{IQ}-{k+1}-";
                 AQQQQ = AQ.text;
                 //Console.WriteLine($"{AQ.text}");
                 if (!AQ.flag)
