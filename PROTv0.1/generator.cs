@@ -17,7 +17,23 @@ namespace PROTv0._1
     /// <Author>Belyi Egor</Author>
     internal static class Generator
     {
-
+        /// <summary>
+        /// Метод для перемешки списка ответов
+        /// </summary>
+        /// <param name="originalList"></param>
+        /// <Author>Veremeychik Alex</Author>
+        public static void Shuffling(List<string> originalList)
+        {
+            Random random = new Random();
+            for (int i = originalList.Count - 1; i >= 1; i--)
+            {
+                int j = random.Next(i + 1);
+                // Обменять значения originalList[j] и originalList[i]
+                string temp = originalList[j];
+                originalList[j] = originalList[i];
+                originalList[i] = temp;
+            }
+        }
         /// <summary>
         /// Генерация билета с указанным числом вопросов
         /// </summary>
@@ -27,8 +43,7 @@ namespace PROTv0._1
         public static void GenerateTicket(MyData[] mas, int questAmount)
         {
             Random rand = new Random();
-            int countOfTypes = 4;//число типов вопросов (их  5 потом будет)
-            int prevType = -1;
+            int countOfTypes = 5;//число типов вопросов (их  5 потом будет)
             int[] questions = new int[countOfTypes];
             for (int i = 0; i < questAmount; i++)
             {
@@ -73,9 +88,9 @@ namespace PROTv0._1
         /// <param name="mas">array of data</param>
         /// <param name="ogr">integer that used in random (less number)</param>
         /// <param name="amount">integer represent amount of generated questions</param>>
-        /// <param name="flag">bool is Negative?</param>>
+        /// <param name="mark">bool is Negative?</param>>
         /// <Author>Belyi Egor</Author>
-        public static void GenerateLinear(MyData[] mas, int ogr, int amount, bool flag)
+        public static void GenerateLinear(MyData[] mas, int ogr, int amount, bool mark)
         {
             Random rand = new Random();
             List<int> intTrueAns = new List<int>();
@@ -88,17 +103,17 @@ namespace PROTv0._1
                 while (i++ < mas.Length - 1)
                 {
 
-                    if (mas[i].priz == 1 && mas[i].isNeg == flag)
+                    if (mas[i].type == 1 && mas[i].flag == mark)
                     {
                         intQuest.Add(i);
                     }
                     else
                     {
-                        if (mas[i].isTrue && mas[i].priz == 2)
+                        if (mas[i].flag && mas[i].type == 2)
                         {
                             intTrueAns.Add(i);
                         }
-                        if (!mas[i].isTrue && mas[i].priz == 2)
+                        if (!mas[i].flag && mas[i].type == 2)
                         {
                             intFalseAns.Add(i);
                         }
@@ -133,7 +148,7 @@ namespace PROTv0._1
                 //intQuest.RemoveAt(IQ);
 
                 Console.WriteLine($"{AQ.text}");
-                if (AQ.isNeg)
+                if (!AQ.flag)
                 {
                     GenerateQuest(mF, mT, k);
                 }
@@ -160,13 +175,13 @@ namespace PROTv0._1
             List<int> IntQuest = new List<int>();
             for (int i = 0; i < mas.Length - 1; i++)
             {
-                if (mas[i].priz == 2)
+                if (mas[i].type == 2)
                 {
                     IntQuest.Add(i);
                 }
                 else
                 {
-                    if (mas[i].priz == 0)
+                    if (mas[i].type == 0)
                     {
                         ENDP = mas[i].text;
                     }
@@ -215,14 +230,14 @@ namespace PROTv0._1
                 while (i++ < mas.Length - 1)
                 {
 
-                    if (mas[i].priz == 1)
+                    if (mas[i].type == 1)
                     {
                         intQuest.Add(i);
                     }
-                    else
+                    if (mas[i].type == 2)
                     {
                         intAnswer.Add(i);
-                        if (mas[i].isTrue)
+                        if (mas[i].flag)
                         {
                             intTrueAns.Add(i);
                         }
@@ -268,24 +283,29 @@ namespace PROTv0._1
                     int IA = rand.Next(full.Count);
                     var AA = mas[full[IA]];
                     full.RemoveAt(IA);
-                    Console.WriteLine($"----{AA.text},  {AA.isTrue}\n");
+                    Console.WriteLine($"----{AA.text},  {AA.flag}\n");
                     AllAnsw.Add(AA.text);
                     if (sign)
                     {
-                        if (AA.isTrue)
+                        if (AA.flag)
                         {
                             CorrectAnswers.Add(AA.text);
                         }
                     }
                     else
                     {
-                        if (!AA.isTrue)
+                        if (!AA.flag)
                         {
                             CorrectAnswers.Add(AA.text);
                         }
                     }
                 }
                 string CorrectString = String.Join("; ", CorrectAnswers);
+
+                if (CorrectString == null || CorrectAnswers.Count == 0)
+                {
+                    CorrectString = "Ничего из перечисленного";
+                }
 
                 int minvalue = 3;
                 int maxvalue = 5;
@@ -307,6 +327,7 @@ namespace PROTv0._1
 
                 }
                 int n = 0;
+                Shuffling(GroupOfAnswers);
                 foreach (string str in GroupOfAnswers)
                 {
                     n++;
@@ -324,7 +345,7 @@ namespace PROTv0._1
             {
                 Console.WriteLine($"{amount}");
                 List<int> Answers = new List<int>(intAnswer);
-                int k = rand.Next(2, ogr);
+                int AmountOfAnswersWithQuestion = rand.Next(2, ogr);
 
                 int IQ = rand.Next(intQuest.Count);
                 var AQ = mas[intQuest[IQ]];
@@ -332,13 +353,13 @@ namespace PROTv0._1
                 CorrectAnswers.Clear();
 
                 Console.WriteLine($"{AQ.text}\n");
-                if (AQ.isNeg)
+                if (!AQ.flag)
                 {
-                    GenerateAnswers(Answers, false, k);
+                    GenerateAnswers(Answers, false, AmountOfAnswersWithQuestion);
                 }
                 else
                 {
-                    GenerateAnswers(Answers, true, k);
+                    GenerateAnswers(Answers, true, AmountOfAnswersWithQuestion);
                 }
 
 
@@ -356,7 +377,6 @@ namespace PROTv0._1
         public static void GenerateEnum(MyData[] mas, int ogr, int amount)
         {
             Random rand = new Random();
-            int amQuest = 0;
             List<int> intTrueAns = new List<int>();
             List<int> intFalseAns = new List<int>();
             List<int> intQuest = new List<int>();
@@ -367,17 +387,17 @@ namespace PROTv0._1
                 while (i++ < mas.Length - 1)
                 {
 
-                    if (mas[i].priz == 1)
+                    if (mas[i].type == 1)
                     {
                         intQuest.Add(i);
                     }
                     else
                     {
-                        if (mas[i].isTrue && mas[i].priz == 2)
+                        if (mas[i].flag && mas[i].type == 2)
                         {
                             intTrueAns.Add(i);
                         }
-                        if (!mas[i].isTrue && mas[i].priz == 2)
+                        if (!mas[i].flag && mas[i].type == 2)
                         {
                             intFalseAns.Add(i);
                         }
@@ -452,7 +472,7 @@ namespace PROTv0._1
                 //intQuest.RemoveAt(IQ);
 
                 Console.WriteLine($"{AQ.text}");
-                if (AQ.isNeg)
+                if (!AQ.flag)
                 {
                     GenerateQuest(mF, mT, k);
                 }
@@ -485,17 +505,17 @@ namespace PROTv0._1
                 while (i++ < mas.Length - 1)
                 {
 
-                    if (mas[i].priz == 1 && mas[i].isNeg == flag)
+                    if (mas[i].type == 1 && mas[i].flag == flag)
                     {
                         intQuest.Add(i);
                     }
                     else
                     {
-                        if (mas[i].isTrue && mas[i].priz == 2)
+                        if (mas[i].flag && mas[i].type == 2)
                         {
                             intTrueAns.Add(i);
                         }
-                        if (!mas[i].isTrue && mas[i].priz == 2)
+                        if (!mas[i].flag && mas[i].type == 2)
                         {
                             intFalseAns.Add(i);
                         }
@@ -540,7 +560,7 @@ namespace PROTv0._1
                 var AQ = mas[intQuest[IQ]];
 
                 Console.WriteLine($"{AQ.text}");
-                if (AQ.isNeg)
+                if (!AQ.flag)
                 {
                     GenerateQuest(mF, mT, k);
                 }
@@ -574,17 +594,17 @@ namespace PROTv0._1
                 while (i++ < mas.Length - 1)
                 {
 
-                    if (mas[i].priz == 1)
+                    if (mas[i].type == 1)
                     {
                         intQuest.Add(i);
                     }
                     else
                     {
-                        if (mas[i].isTrue && mas[i].priz == 2)
+                        if (mas[i].flag && mas[i].type == 2)
                         {
                             intTrueAns.Add(i);
                         }
-                        if (!mas[i].isTrue && mas[i].priz == 2)
+                        if (!mas[i].flag && mas[i].type == 2)
                         {
                             intFalseAns.Add(i);
                         }
@@ -756,7 +776,7 @@ namespace PROTv0._1
                 //intQuest.RemoveAt(IQ);
 
                 Console.WriteLine($"{AQ.text}");
-                if (AQ.isNeg)
+                if (!AQ.flag)
                 {
                     GenerateQuest(mF, mT, k);
                 }
