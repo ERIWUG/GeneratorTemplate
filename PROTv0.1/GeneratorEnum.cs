@@ -74,6 +74,8 @@ namespace PROTv0._1
                 }
                 ans.Add(ANSW1);
                 ans.Add(ANSW2);
+                MyHash += $"A1-";
+                MyHash += $"A2-";
                 questions[l] = new Question(AQQQQ, ans.ToArray(), IndAnswer, MyHash + IndAnswer);
                 l++;
             }
@@ -107,6 +109,8 @@ namespace PROTv0._1
                     //     Console.WriteLine($"T)Ничего из перечисленного");
                     ans2.Add(ANSW1);
                     ans2.Add(ANSW2);
+                    MyHash += $"A1-";
+                    MyHash += $"A2-";
                     questions[l] = new Question(AQQQQ, ans2.ToArray(), kk-2, MyHash + "A");
                     l++;
                 }
@@ -124,8 +128,10 @@ namespace PROTv0._1
                     }
                     ans2.Add(ANSW1);
                     ans2.Add(ANSW2);
-                  //  Console.WriteLine($"T)Все перечисленное");
-                   // Console.WriteLine($"1)Ничего из перечисленного");
+                    MyHash += $"A1-";
+                    MyHash += $"A2-";
+                    //  Console.WriteLine($"T)Все перечисленное");
+                    // Console.WriteLine($"1)Ничего из перечисленного");
                     questions[l] = new Question(AQQQQ, ans2.ToArray(), kk-1, MyHash + "B");
                     l++;
                 }
@@ -255,6 +261,8 @@ namespace PROTv0._1
                 }
                 ans.Add(ANSW1);
                 ans.Add(ANSW2);
+                myHash += $"A1-";
+                myHash += $"A2-";
                 questions[l] = new Question(AQQQQ, ans.ToArray(), IndAnswer, myHash + IndAnswer);
                 l++;
             }
@@ -307,7 +315,10 @@ namespace PROTv0._1
 
                     }
                     ans2.Add(ANSW1);
+
                     ans2.Add(ANSW2);
+                    myHash += $"A1-";
+                    myHash += $"A2-";
                     //    Console.WriteLine($"1)Все перечисленное");
                     //    Console.WriteLine($"T)Ничего из перечисленного");
                     questions[l] = new Question(AQQQQ, ans2.ToArray(), kk-2, myHash + "A");
@@ -315,7 +326,7 @@ namespace PROTv0._1
                 }
                 else if (allOrNo == 2)//если все не являются
                 {
-                    List<int> appearedAnswers = new List<int>();
+                //    List<int> appearedAnswers = new List<int>();
                     int ca = 0;
                     while (k-- > 0)
                     {
@@ -330,7 +341,7 @@ namespace PROTv0._1
                             {
                            //     Console.WriteLine($"T){AA.text}");
                                 ca++;
-                                appearedAnswers.Add(b[IA]);
+                            //    appearedAnswers.Add(b[IA]);
                                 ans2.Add(AA.text);
                                 myHash += $"{b[IA]}-";
                                 b.RemoveAt(IA);
@@ -342,7 +353,7 @@ namespace PROTv0._1
                      //       Console.WriteLine($"T){AA.text}");
                             ca++;
 
-                            appearedAnswers.Add(b[IA]);
+                        //    appearedAnswers.Add(b[IA]);
                             ans2.Add(AA.text);
                             myHash += $"{b[IA]}-";
                             b.RemoveAt(IA);
@@ -353,6 +364,8 @@ namespace PROTv0._1
                     }
                     ans2.Add(ANSW1);
                     ans2.Add(ANSW2);
+                    myHash += $"A1-";
+                    myHash += $"A2-";
                     //    Console.WriteLine($"T)Все перечисленное");
                     //    Console.WriteLine($"1)Ничего из перечисленного");
                     questions[l] = new Question(AQQQQ, ans2.ToArray(), kk-1, myHash + "B");
