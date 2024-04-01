@@ -99,7 +99,7 @@ namespace PROTv0._1
             List<string> ans = new List<string>();
             int IndAnswer = 0;
             string AQQQQ=null;
-            string MyHash = "DBNAME-";
+            string MyHash = "DBNAME-GLIN-";
             void ParseData(MyData[] mas)
             {
                 int i = -1;
