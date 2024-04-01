@@ -77,8 +77,7 @@ var mas2 = new MyDataWithProbability[]{
 Random n = new Random();
 
 
-
-Question[] q =  Generator.GenerateLinear(mas,5,10,true);
+Question[] q =  Generator.GenerateLinear(mas2,5,10,true);
 
 foreach(var l in q)
 {

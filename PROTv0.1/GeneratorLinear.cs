@@ -55,6 +55,7 @@ namespace PROTv0._1
 
             void GenerateQuest(List<int> a, List<int> b, int k)
             {
+                ans.Clear();
                 int i = a[rand.Next(a.Count)];
                 ans.Add(mas[i].text);
                 //Console.WriteLine($"1){mas[a[rand.Next(a.Count)]].text}");
@@ -149,8 +150,12 @@ namespace PROTv0._1
                 }
             }
 
+
+
+
             void GenerateQuest(List<int> a, List<int> b, int k)
             {
+                ans.Clear();
                 int i = a[rand.Next(a.Count)];
                 ans.Add($"1){mas[i].text}");
                 MyHash += $"{i}-";
@@ -167,6 +172,7 @@ namespace PROTv0._1
                         {
                             ans.Add(AA.text);
                             MyHash += $"{b[IA]}-";
+                            b.RemoveAt(IA);
                         }
                         else k++;
                     }
@@ -174,8 +180,9 @@ namespace PROTv0._1
                     {
                         ans.Add(AA.text);
                     MyHash += $"{b[IA]}-";
+                        b.RemoveAt(IA);
                     }
-                    b.RemoveAt(IA);
+                    
                 }
                 questions[l] = new Question(AQQQQ, ans.ToArray(), IndAnswer, MyHash + "0");
                 l++;
