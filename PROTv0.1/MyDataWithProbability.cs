@@ -13,7 +13,7 @@ namespace PROTv0._1
     {
        public double probability { get; set; }
 
-        public MyDataWithProbability(string text, int priz, bool isNeg, bool isTrue, double probability) : base(text, priz, isNeg, isTrue)
+        public MyDataWithProbability(string text, int type, bool flag, double probability) : base(text, type, flag)
         {
             this.probability = probability;
         }
