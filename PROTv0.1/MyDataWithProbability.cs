@@ -9,7 +9,7 @@ namespace PROTv0._1
     /// <summary>
     /// Answer that has a certain probability of appearing
     /// </summary>
-    internal class MyDataWithProbability :MyData
+    public class MyDataWithProbability :MyData
     {
        public double probability { get; set; }
 

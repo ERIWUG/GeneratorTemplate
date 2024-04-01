@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PROTv0._1
 {
-    internal class MyData
+    public class MyData
     {
         public string text;
         public int type;
