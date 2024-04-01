@@ -75,9 +75,22 @@ var mas2 = new MyDataWithProbability[]{
     new("В обратном направлении", 2, false, 0.5)
     };
 Random n = new Random();
-Generator.GenerateLinear(mas2, 5, 10, false);
-//Generator.GenerateEnum(mas2, 5, 10);
-Question q = new Question("sd", null, 1, "sdas");
+
+
+Question[] q =  Generator.GenerateLinear(mas,5,10,true);
+
+foreach(var l in q)
+{
+    Console.WriteLine(l.QuestionHash);
+    foreach(var t in l.answers)
+    {
+        Console.WriteLine(t);
+    }
+
+}
+
+
+
 
 
 
