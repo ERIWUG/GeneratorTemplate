@@ -11,7 +11,7 @@ namespace PROTv0._1
     /// </summary>
     internal class MyDataWithProbability :MyData
     {
-       public double probability;
+       public double probability { get; set; }
 
         public MyDataWithProbability(string text, int priz, bool isNeg, bool isTrue, double probability) : base(text, priz, isNeg, isTrue)
         {
