@@ -9,8 +9,5 @@ using System.Threading.Tasks;
 namespace PROTv0._1
 {
     [Serializable]
-    public class Question(string questionText,string[] answers,int correctAnswer,string QuestionHash)
-    {
-
-    }
+    public class Question( string questionText,string[] answers,int correctAnswer,string QuestionHash);
 }
