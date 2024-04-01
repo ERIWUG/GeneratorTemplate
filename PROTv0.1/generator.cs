@@ -90,7 +90,7 @@ namespace PROTv0._1
         /// <param name="amount">integer represent amount of generated questions</param>>
         /// <param name="mark">bool is Negative?</param>>
         /// <Author>Belyi Egor</Author>
-        public static Question GenerateLinear(MyData[] mas, int ogr, int amount, bool flag)
+        public static Question GenerateLinear(MyData[] mas, int ogr, int amount, bool mark)
         {
             Random rand = new Random();
             List<int> intTrueAns = new List<int>();
@@ -155,7 +155,7 @@ namespace PROTv0._1
                 //intQuest.RemoveAt(IQ);
                 AQQQQ = AQ.text;
                 //Console.WriteLine($"{AQ.text}");
-                if (AQ.isNeg)
+                if (!AQ.flag)
                 {
                     GenerateQuest(mF, mT, k);
                 }
