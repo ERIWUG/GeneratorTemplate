@@ -22,17 +22,31 @@ namespace PROTv0._1
         /// </summary>
         /// <param name="originalList"></param>
         /// <Author>Veremeychik Alex</Author>
-        public static void Shuffling(List<string> originalList)
+        public static int Shuffling(List<string> originalList,int index)
         {
+
             Random random = new Random();
             for (int i = originalList.Count - 1; i >= 1; i--)
             {
+                
                 int j = random.Next(i + 1);
                 // Обменять значения originalList[j] и originalList[i]
                 string temp = originalList[j];
                 originalList[j] = originalList[i];
                 originalList[i] = temp;
+                if (i == index)
+                {
+                    
+                    index = j;
+                }
+                else if (j == index)
+                {
+                    
+                    index = i;
+                }
+                
             }
+            return index;
         }
         /// <summary>
         /// Генерация билета с указанным числом вопросов

@@ -29,6 +29,7 @@ namespace PROTv0._1
             List<string> CorrectAnswers = new List<string>();
             List<string> GroupOfAnswers = new List<string>();
             List<string> randomElements = new List<string>();
+            int IndexOfCorrectAnswer=0;
 
             int IndAnswer = 0;
             int l = 0;
@@ -188,15 +189,16 @@ namespace PROTv0._1
                         }
                     }
                 }
+                IndexOfCorrectAnswer = 0;
                 int n = 0;
-                //Shuffling(GroupOfAnswers);
+                IndexOfCorrectAnswer=Shuffling(GroupOfAnswers,IndexOfCorrectAnswer);
                 foreach (string str in GroupOfAnswers)
                 {
                     n++;
                     Console.WriteLine(Convert.ToString(n) + " " + str);
                 }
-                Console.WriteLine();
-                questions[l] = new Question(AQQQQ, GroupOfAnswers.ToArray(), IndAnswer, MyHash + "0");
+                Console.WriteLine($"Index of correct answer - {IndexOfCorrectAnswer}");
+                questions[l] = new Question(AQQQQ, GroupOfAnswers.ToArray(), IndexOfCorrectAnswer, MyHash + "0");
                 l++;
                 GroupOfAnswers.Clear();
                 MyHash += "-0";
@@ -238,7 +240,12 @@ namespace PROTv0._1
 
 
 
-
+        /// <summary>
+        /// Function that generate random combination of questions with new parameter
+        /// <param name="mas"></param>
+        /// <param name="ogr"></param>
+        /// <param name="amount"></param>
+        /// <Author>Alex Veremeychik</Author>>
         public static Question[] GenerateGroup(MyDataWithProbability[] mas, int ogr, int amount)
         {
             Question[] questions = new Question[amount];
@@ -253,6 +260,7 @@ namespace PROTv0._1
             List<string> CorrectAnswers = new List<string>();
             List<string> GroupOfAnswers = new List<string>();
             List<string> randomElements = new List<string>();
+            int IndexOfCorrectAnswer=0;
 
             int IndAnswer = 0;
             int l = 0;
@@ -439,15 +447,18 @@ namespace PROTv0._1
                         }
                     }
                 }
+                IndexOfCorrectAnswer = Shuffling(GroupOfAnswers, IndexOfCorrectAnswer);
                 int n = 0;
-                //Shuffling(GroupOfAnswers);
+                IndexOfCorrectAnswer=Shuffling(GroupOfAnswers,0);
+
                 foreach (string str in GroupOfAnswers)
                 {
                     n++;
                     Console.WriteLine(Convert.ToString(n) + " " + str);
                 }
-                Console.WriteLine();
-                questions[l] = new Question(AQQQQ, GroupOfAnswers.ToArray(), IndAnswer, MyHash + "0");
+
+                Console.WriteLine($"Index of correct answer - {IndexOfCorrectAnswer}");
+                questions[l] = new Question(AQQQQ, GroupOfAnswers.ToArray(), IndexOfCorrectAnswer, MyHash + "0");
                 l++;
                 GroupOfAnswers.Clear();
                 MyHash += "-0";
