@@ -15,8 +15,9 @@ namespace PROTv0._1
         /// <param name="amount"></param>
         /// <Author>Alex Veremeychik</Author>>
 
-        public static void GenerateGroup(MyData[] mas, int ogr, int amount)
+        public static Question[] GenerateGroup(MyData[] mas, int ogr, int amount)
         {
+            Question[] questions = new Question[amount];
             Random rand = new Random();
             int amQuest = 0;
             List<int> intTrueAns = new List<int>();
@@ -27,6 +28,12 @@ namespace PROTv0._1
             List<string> AllAnsw = new List<string>();
             List<string> CorrectAnswers = new List<string>();
             List<string> GroupOfAnswers = new List<string>();
+            List<string> randomElements = new List<string>();
+
+            int IndAnswer = 0;
+            int l = 0;
+            string AQQQQ = null;
+            string MyHash = "DBNAME-GX-";
 
             void ParseData(MyData[] mas)
             {
@@ -56,9 +63,11 @@ namespace PROTv0._1
 
             string GenerateRandomStrings(List<string> list)
             {
+                string TempHash = "";
+
                 // Создание копии списка для извлечения элементов без повторений
                 List<string> tempList = new List<string>(list);
-                List<string> randomElements = new List<string>();
+                randomElements.Clear();
 
                 // Определение случайного количества элементов для выборки
                 int numberOfElements = rand.Next(0, tempList.Count + 1);
@@ -75,15 +84,19 @@ namespace PROTv0._1
                 }
                 randomElements.Sort((a, b) => list.IndexOf(a).CompareTo(list.IndexOf(b)));
                 return String.Join("; ", randomElements);
+                
+
             }
 
+            
 
 
-
-            void GenerateAnswers(List<int> full, bool sign, int k)
+            void GenerateAnswers(List<int> full, bool sign, int num)
             {
+                int k = num;
                 while (k-- > 0)
                 {
+                    
                     int IA = rand.Next(full.Count);
                     var AA = mas[full[IA]];
                     full.RemoveAt(IA);
@@ -94,6 +107,7 @@ namespace PROTv0._1
                         if (AA.flag)
                         {
                             CorrectAnswers.Add(AA.text);
+                            
                         }
                     }
                     else
@@ -101,9 +115,34 @@ namespace PROTv0._1
                         if (!AA.flag)
                         {
                             CorrectAnswers.Add(AA.text);
+                            
+                        }
+                    }
+
+                    
+                }
+                if (CorrectAnswers.Count!=0)
+                {
+                    for (int i = 0; i < CorrectAnswers.Count; i++)
+                    {
+                        if (i + 1 < CorrectAnswers.Count)
+                        {
+                            MyHash += $"{mas.Select((obj, i) => new { obj, i }).First(p => p.obj.text == CorrectAnswers[i]).i},";
+
+                        }
+                        else
+                        {
+                            MyHash += $"{mas.Select((obj, i) => new { obj, i }).First(p => p.obj.text == CorrectAnswers[i]).i}";
+
                         }
                     }
                 }
+                else
+                {
+                    MyHash += "A2";
+                }
+
+                
                 string CorrectString = String.Join("; ", CorrectAnswers);
 
                 if (CorrectString == null || CorrectAnswers.Count == 0)
@@ -126,20 +165,43 @@ namespace PROTv0._1
                     if (!GroupOfAnswers.Contains(randomString))
                     {
                         GroupOfAnswers.Add(randomString);
+                        if (randomElements.Count != 0)
+                        {
+                            MyHash += $"-";
+                            for (int i = 0; i < randomElements.Count; i++)
+                            {
+                                if (i + 1 < randomElements.Count)
+                                {
+                                    MyHash += $"{mas.Select((obj, i) => new { obj, i }).First(p => p.obj.text == randomElements[i]).i},";
+
+                                }
+                                else
+                                {
+                                    MyHash += $"{mas.Select((obj, i) => new { obj, i }).First(p => p.obj.text == randomElements[i]).i}";
+
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MyHash += "-A2";
+                        }
                     }
-
-
                 }
                 int n = 0;
-                Shuffling(GroupOfAnswers);
+                //Shuffling(GroupOfAnswers);
                 foreach (string str in GroupOfAnswers)
                 {
                     n++;
                     Console.WriteLine(Convert.ToString(n) + " " + str);
                 }
                 Console.WriteLine();
-
+                questions[l] = new Question(AQQQQ, GroupOfAnswers.ToArray(), IndAnswer, MyHash + "0");
+                l++;
                 GroupOfAnswers.Clear();
+                MyHash += "-0";
+                Console.WriteLine(MyHash);
+                Console.WriteLine() ;
             }
 
 
@@ -147,7 +209,7 @@ namespace PROTv0._1
 
             while (amount-- > 0)
             {
-                Console.WriteLine($"{amount}");
+                MyHash = "DBNAME-GX-";
                 List<int> Answers = new List<int>(intAnswer);
                 int AmountOfAnswersWithQuestion = rand.Next(2, ogr);
 
@@ -155,6 +217,8 @@ namespace PROTv0._1
                 var AQ = mas[intQuest[IQ]];
                 AllAnsw.Clear();
                 CorrectAnswers.Clear();
+                MyHash += $"{IQ}-{AmountOfAnswersWithQuestion}-";
+                AQQQQ = AQ.text;
 
                 Console.WriteLine($"{AQ.text}\n");
                 if (!AQ.flag)
@@ -166,12 +230,18 @@ namespace PROTv0._1
                     GenerateAnswers(Answers, true, AmountOfAnswersWithQuestion);
                 }
 
-
             }
+            
+            return questions;
 
         }
-        public static void GenerateGroup(MyDataWithProbability[] mas, int ogr, int amount)
+
+
+
+
+        public static Question[] GenerateGroup(MyDataWithProbability[] mas, int ogr, int amount)
         {
+            Question[] questions = new Question[amount];
             Random rand = new Random();
             int amQuest = 0;
             List<int> intTrueAns = new List<int>();
@@ -182,6 +252,12 @@ namespace PROTv0._1
             List<string> AllAnsw = new List<string>();
             List<string> CorrectAnswers = new List<string>();
             List<string> GroupOfAnswers = new List<string>();
+            List<string> randomElements = new List<string>();
+
+            int IndAnswer = 0;
+            int l = 0;
+            string AQQQQ = null;
+            string MyHash = "DBNAME-GX-";
 
             void ParseData(MyData[] mas)
             {
@@ -211,9 +287,11 @@ namespace PROTv0._1
 
             string GenerateRandomStrings(List<string> list)
             {
+                string TempHash = "";
+
                 // Создание копии списка для извлечения элементов без повторений
                 List<string> tempList = new List<string>(list);
-                List<string> randomElements = new List<string>();
+                randomElements.Clear();
 
                 // Определение случайного количества элементов для выборки
                 int numberOfElements = rand.Next(0, tempList.Count + 1);
@@ -230,41 +308,92 @@ namespace PROTv0._1
                 }
                 randomElements.Sort((a, b) => list.IndexOf(a).CompareTo(list.IndexOf(b)));
                 return String.Join("; ", randomElements);
+
+
             }
 
 
 
 
-            void GenerateAnswers(List<int> full, bool sign, int k)
+            void GenerateAnswers(List<int> full, bool sign, int num)
             {
+                int k = num;
                 while (k-- > 0)
                 {
+
                     int IA = rand.Next(full.Count);
                     var AA = mas[full[IA]];
-                    if (AA.probability!=1) 
+                    if (AA.probability != 1)
                     {
-                        int c= (int)Math.Round(1/AA.probability);
-                        int rnd=rand.Next(c);
-                        if (rnd != 1) k++;
-                    }
-                    full.RemoveAt(IA);
-                    Console.WriteLine($"----{AA.text},  {AA.flag}\n");
-                    AllAnsw.Add(AA.text);
-                    if (sign)
-                    {
-                        if (AA.flag)
+                        int c = (int)Math.Round(1 / AA.probability);
+                        int rnd = rand.Next(c);
+                        if (rnd == 1)
                         {
-                            CorrectAnswers.Add(AA.text);
+                            full.RemoveAt(IA);
+                            Console.WriteLine($"----{AA.text},  {AA.flag}\n");
+                            AllAnsw.Add(AA.text);
+                            if (sign)
+                            {
+                                if (AA.flag)
+                                {
+                                    CorrectAnswers.Add(AA.text);
+                                }
+                            }
+                            else
+                            {
+                                if (!AA.flag)
+                                {
+                                    CorrectAnswers.Add(AA.text);
+                                }
+                            }
                         }
+                        else k++;
                     }
                     else
                     {
-                        if (!AA.flag)
+                        full.RemoveAt(IA);
+                        Console.WriteLine($"----{AA.text},  {AA.flag}\n");
+                        AllAnsw.Add(AA.text);
+                        if (sign)
                         {
-                            CorrectAnswers.Add(AA.text);
+                            if (AA.flag)
+                            {
+                                CorrectAnswers.Add(AA.text);
+                            }
+                        }
+                        else
+                        {
+                            if (!AA.flag)
+                            {
+                                CorrectAnswers.Add(AA.text);
+                            }
+                        }
+                    }
+
+
+                }
+                if (CorrectAnswers.Count != 0)
+                {
+                    for (int i = 0; i < CorrectAnswers.Count; i++)
+                    {
+                        if (i + 1 < CorrectAnswers.Count)
+                        {
+                            MyHash += $"{mas.Select((obj, i) => new { obj, i }).First(p => p.obj.text == CorrectAnswers[i]).i},";
+
+                        }
+                        else
+                        {
+                            MyHash += $"{mas.Select((obj, i) => new { obj, i }).First(p => p.obj.text == CorrectAnswers[i]).i}";
+
                         }
                     }
                 }
+                else
+                {
+                    MyHash += "A2";
+                }
+
+
                 string CorrectString = String.Join("; ", CorrectAnswers);
 
                 if (CorrectString == null || CorrectAnswers.Count == 0)
@@ -287,20 +416,43 @@ namespace PROTv0._1
                     if (!GroupOfAnswers.Contains(randomString))
                     {
                         GroupOfAnswers.Add(randomString);
+                        if (randomElements.Count != 0)
+                        {
+                            MyHash += $"-";
+                            for (int i = 0; i < randomElements.Count; i++)
+                            {
+                                if (i + 1 < randomElements.Count)
+                                {
+                                    MyHash += $"{mas.Select((obj, i) => new { obj, i }).First(p => p.obj.text == randomElements[i]).i},";
+
+                                }
+                                else
+                                {
+                                    MyHash += $"{mas.Select((obj, i) => new { obj, i }).First(p => p.obj.text == randomElements[i]).i}";
+
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MyHash += "-A2";
+                        }
                     }
-
-
                 }
                 int n = 0;
-                Shuffling(GroupOfAnswers);
+                //Shuffling(GroupOfAnswers);
                 foreach (string str in GroupOfAnswers)
                 {
                     n++;
                     Console.WriteLine(Convert.ToString(n) + " " + str);
                 }
                 Console.WriteLine();
-
+                questions[l] = new Question(AQQQQ, GroupOfAnswers.ToArray(), IndAnswer, MyHash + "0");
+                l++;
                 GroupOfAnswers.Clear();
+                MyHash += "-0";
+                Console.WriteLine(MyHash);
+                Console.WriteLine();
             }
 
 
@@ -308,7 +460,7 @@ namespace PROTv0._1
 
             while (amount-- > 0)
             {
-                Console.WriteLine($"{amount}");
+                MyHash = "DBNAME-GX-";
                 List<int> Answers = new List<int>(intAnswer);
                 int AmountOfAnswersWithQuestion = rand.Next(2, ogr);
 
@@ -316,6 +468,8 @@ namespace PROTv0._1
                 var AQ = mas[intQuest[IQ]];
                 AllAnsw.Clear();
                 CorrectAnswers.Clear();
+                MyHash += $"{IQ}-{AmountOfAnswersWithQuestion}-";
+                AQQQQ = AQ.text;
 
                 Console.WriteLine($"{AQ.text}\n");
                 if (!AQ.flag)
@@ -327,8 +481,9 @@ namespace PROTv0._1
                     GenerateAnswers(Answers, true, AmountOfAnswersWithQuestion);
                 }
 
-
             }
+
+            return questions;
 
         }
     }
