@@ -68,12 +68,14 @@ namespace PROTv0._1
                     ans.Add(AA.text);
                     MyHash += $"{b[IA]}-";
                     b.RemoveAt(IA);
-               
+
                     //Console.WriteLine($"T){AA.text}");
 
                 }
                 ans.Add(ANSW1);
                 ans.Add(ANSW2);
+                MyHash += $"A1-";
+                MyHash += $"A2-";
                 questions[l] = new Question(AQQQQ, ans.ToArray(), IndAnswer, MyHash + IndAnswer);
                 l++;
             }
@@ -85,19 +87,19 @@ namespace PROTv0._1
                 int allOrNo = rand.Next(3);
                 if (allOrNo == 0)//если как обчно
                 {
-                 GenerateQuest1(a, b, k-1);
+                    GenerateQuest1(a, b, k - 1);
                     //   Console.WriteLine($"T)Все перечисленное");
                     //    Console.WriteLine($"T)Ничего из перечисленного");
                 }
                 else if (allOrNo == 1)//если все являются
                 {
 
-                  //  MyHash += $"{k-2}-";
+                    //  MyHash += $"{k-2}-";
                     while (k-- > 0)
                     {
                         int IA = rand.Next(a.Count);
                         var AA = mas[a[IA]];
-                       
+
                         ans2.Add(AA.text);
                         MyHash += $"{a[IA]}-";
                         a.RemoveAt(IA);
@@ -107,12 +109,14 @@ namespace PROTv0._1
                     //     Console.WriteLine($"T)Ничего из перечисленного");
                     ans2.Add(ANSW1);
                     ans2.Add(ANSW2);
-                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk-2, MyHash + "A");
+                    MyHash += $"A1-";
+                    MyHash += $"A2-";
+                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk - 2, MyHash + "A");
                     l++;
                 }
                 else if (allOrNo == 2)//если все не являются
                 {
-                  //  MyHash += $"{k-1}-";
+                    //  MyHash += $"{k-1}-";
                     while (k-- > 0)
                     {
                         int IA = rand.Next(b.Count);
@@ -124,9 +128,11 @@ namespace PROTv0._1
                     }
                     ans2.Add(ANSW1);
                     ans2.Add(ANSW2);
-                  //  Console.WriteLine($"T)Все перечисленное");
-                   // Console.WriteLine($"1)Ничего из перечисленного");
-                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk-1, MyHash + "B");
+                    MyHash += $"A1-";
+                    MyHash += $"A2-";
+                    //  Console.WriteLine($"T)Все перечисленное");
+                    // Console.WriteLine($"1)Ничего из перечисленного");
+                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk - 1, MyHash + "B");
                     l++;
                 }
 
@@ -138,17 +144,17 @@ namespace PROTv0._1
             {
                 MyHash = "DBNAME-G1-";
                 //  Console.WriteLine($"{amount}");
-           //     Console.WriteLine();
+                //     Console.WriteLine();
                 List<int> mT = intTrueAns.Slice(0, intTrueAns.Count);
                 List<int> mF = intFalseAns.Slice(0, intFalseAns.Count);
                 int k = rand.Next(4, ogr);
                 int IQ = rand.Next(intQuest.Count);
                 var AQ = mas[intQuest[IQ]];
                 //intQuest.RemoveAt(IQ);
-                MyHash += $"{IQ}-{k+2}-";
+                MyHash += $"{IQ}-{k + 2}-";
                 //intQuest.RemoveAt(IQ);
                 AQQQQ = AQ.text;
-             //   Console.WriteLine($"{AQ.text}");
+                //   Console.WriteLine($"{AQ.text}");
                 if (!AQ.flag)
                 {
                     GenerateQuest(mF, mT, k);
@@ -217,9 +223,7 @@ namespace PROTv0._1
                 ans.Clear();
                 int i = a[rand.Next(a.Count)];
                 ans.Add(mas[i].text);
-                //Console.WriteLine($"1){mas[a[rand.Next(a.Count)]].text}");
                 myHash += $"{i}-";
-                // Console.WriteLine($"1){mas[a[rand.Next(a.Count)]].text}");
                 List<int> appearedAnswers = new List<int>();
                 int ca = 0;
                 while (k-- > 0)
@@ -233,7 +237,6 @@ namespace PROTv0._1
                         int rnd = rand.Next(c);
                         if (rnd == 1)
                         {
-                          //  Console.WriteLine($"T){AA.text}");
                             ca++;
                             appearedAnswers.Add(b[IA]);
                             ans.Add(AA.text);
@@ -244,17 +247,18 @@ namespace PROTv0._1
                     }
                     else
                     {
-                     //   Console.WriteLine($"T){AA.text}");
                         ca++;
                         appearedAnswers.Add(b[IA]);
                         ans.Add(AA.text);
                         myHash += $"{b[IA]}-";
                         b.RemoveAt(IA);
                     }
-                    
+
                 }
                 ans.Add(ANSW1);
                 ans.Add(ANSW2);
+                myHash += $"A1-";
+                myHash += $"A2-";
                 questions[l] = new Question(AQQQQ, ans.ToArray(), IndAnswer, myHash + IndAnswer);
                 l++;
             }
@@ -266,15 +270,13 @@ namespace PROTv0._1
                 int allOrNo = rand.Next(3);
                 if (allOrNo == 0)//если как обчно
                 {
-                    GenerateQuest1(a, b, k-2);
-                    //   Console.WriteLine($"T)Все перечисленное");
-                    //   Console.WriteLine($"T)Ничего из перечисленного");                
+                    GenerateQuest1(a, b, k - 2);        
                 }
                 else if (allOrNo == 1)//если все являются
                 {
                     List<int> appearedAnswers = new List<int>();
                     int ca = 0;
-                    while (k-- > 0)
+                    while (k-- > -1)
                     {
                         if (a.Count == 0) break;
                         int IA = rand.Next(a.Count);
@@ -287,7 +289,6 @@ namespace PROTv0._1
                             {
                                 ans2.Add(AA.text);
                                 myHash += $"{a[IA]}-";
-                      //          Console.WriteLine($"T){AA.text}");
                                 ca++;
                                 appearedAnswers.Add(a[IA]);
                                 a.RemoveAt(IA);
@@ -298,26 +299,25 @@ namespace PROTv0._1
                         {
                             ans2.Add(AA.text);
                             myHash += $"{a[IA]}-";
-                      //      Console.WriteLine($"T){AA.text}");
                             ca++;
                             appearedAnswers.Add(a[IA]);
                             a.RemoveAt(IA);
                         }
-                       
+
 
                     }
                     ans2.Add(ANSW1);
+
                     ans2.Add(ANSW2);
-                    //    Console.WriteLine($"1)Все перечисленное");
-                    //    Console.WriteLine($"T)Ничего из перечисленного");
-                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk-2, myHash + "A");
+                    myHash += $"A1-";
+                    myHash += $"A2-";
+                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk - 2, myHash + "A");
                     l++;
                 }
                 else if (allOrNo == 2)//если все не являются
                 {
-                    List<int> appearedAnswers = new List<int>();
                     int ca = 0;
-                    while (k-- > 0)
+                    while (k-- > -1)
                     {
                         if (b.Count == 0) break;
                         int IA = rand.Next(b.Count);
@@ -328,9 +328,7 @@ namespace PROTv0._1
                             int rnd = rand.Next(c);
                             if (rnd == 1)
                             {
-                           //     Console.WriteLine($"T){AA.text}");
                                 ca++;
-                                appearedAnswers.Add(b[IA]);
                                 ans2.Add(AA.text);
                                 myHash += $"{b[IA]}-";
                                 b.RemoveAt(IA);
@@ -339,23 +337,20 @@ namespace PROTv0._1
                         }
                         else
                         {
-                     //       Console.WriteLine($"T){AA.text}");
                             ca++;
-
-                            appearedAnswers.Add(b[IA]);
                             ans2.Add(AA.text);
                             myHash += $"{b[IA]}-";
                             b.RemoveAt(IA);
                         }
-                      
-                       
+
+
 
                     }
                     ans2.Add(ANSW1);
                     ans2.Add(ANSW2);
-                    //    Console.WriteLine($"T)Все перечисленное");
-                    //    Console.WriteLine($"1)Ничего из перечисленного");
-                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk-1, myHash + "B");
+                    myHash += $"A1-";
+                    myHash += $"A2-";
+                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk - 1, myHash + "B");
                     l++;
                 }
 
@@ -366,18 +361,13 @@ namespace PROTv0._1
             while (amount-- > 0)
             {
                 myHash = MyHash;
-                //  Console.WriteLine($"{amount}");
-             //   Console.WriteLine();
                 List<int> mT = intTrueAns.Slice(0, intTrueAns.Count);
                 List<int> mF = intFalseAns.Slice(0, intFalseAns.Count);
-                     int k = rand.Next(2, ogr);
-                //int k = ogr-1;
+                int k = rand.Next(2, ogr);
                 int IQ = rand.Next(intQuest.Count);
                 var AQ = mas[intQuest[IQ]];
-                //intQuest.RemoveAt(IQ);
                 AQQQQ = AQ.text;
                 myHash += $"{IQ}-{k + 2}-";
-                //   Console.WriteLine($"{AQ.text}");
                 if (!AQ.flag)
                 {
                     GenerateQuest(mF, mT, k);
