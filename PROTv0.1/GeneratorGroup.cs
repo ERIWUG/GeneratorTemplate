@@ -198,7 +198,7 @@ namespace PROTv0._1
                     Console.WriteLine(Convert.ToString(n) + " " + str);
                 }
                 Console.WriteLine($"Index of correct answer - {IndexOfCorrectAnswer}");
-                questions[l] = new Question(AQQQQ, GroupOfAnswers.ToArray(), IndexOfCorrectAnswer, MyHash + "0");
+                questions[l] = new Question(AQQQQ, GroupOfAnswers.ToArray(), IndexOfCorrectAnswer, MyHash + "-0");
                 l++;
                 GroupOfAnswers.Clear();
                 MyHash += "-0";
@@ -456,9 +456,11 @@ namespace PROTv0._1
                     n++;
                     Console.WriteLine(Convert.ToString(n) + " " + str);
                 }
+                Console.WriteLine();
+                questions[l] = new Question(AQQQQ, GroupOfAnswers.ToArray(), IndAnswer, MyHash + "-0");
 
                 Console.WriteLine($"Index of correct answer - {IndexOfCorrectAnswer}");
-                questions[l] = new Question(AQQQQ, GroupOfAnswers.ToArray(), IndexOfCorrectAnswer, MyHash + "0");
+                questions[l] = new Question(AQQQQ, GroupOfAnswers.ToArray(), IndexOfCorrectAnswer, MyHash + "-0");
                 l++;
                 GroupOfAnswers.Clear();
                 MyHash += "-0";

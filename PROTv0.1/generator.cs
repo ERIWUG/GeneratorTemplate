@@ -98,6 +98,99 @@ namespace PROTv0._1
             return questions1;
         }
 
+        /// <summary>
+        /// Generate a question from hash function
+        /// </summary>
+        /// <param name="hash">hash</param>
+        /// <Author>Nichiporuk Viktor</Author>
+        public static Question degeneration (String hash)
+        {
+            //локальный массив для отладки метода
+            var mas = new MyData[]{
+
+    new("элементами дороги",0,true),
+    new("Какие из перечисленных элементов являются элементами дороги?",1,true),
+    new("Какие из перечисленных элементов(при их наличии) являются элементами дороги?",1,true),
+    new("Что является элементом дороги?",1,true),
+    new("Что входит в элементы дороги?",1,true),
+    new("Какие из перечисленных элементов не являются элементами дороги?",1,false),
+    new("Какие из перечисленных элементов(при их наличии) не являются элементами дороги?",1,false),
+    new("Что не является элементом дороги?",1,false),
+    new("Что не входит в элементы дороги?",1,false),
+    new("Разделительные полосы",2,true),
+    new("Разделительные зоны",2,true),
+    new("Трамвайные пути",2,true),
+    new("Островки безопасности",2,true),
+    new("Островки, выделенные только разметкой",2,false),
+    new("Проезжие части",2,true),
+    new("Тротуары",2,true),
+    new("Обочины",2,true),
+    new("Пешеходные дорожки",2,true),
+    new("Велосипедные дорожки",2,true),
+    new("Обособленные велосипедные дорожки",2,false),
+    new("Пешеходные переходы",2,false),
+    new("Велосипедные переезды",2,false),
+    new("Перекрестки",2,false),
+    new("Кюветы", 2, false),
+    new("Обрезы", 2, false),
+    new("Придорожные насаждения", 2, false),
+    new("Кустарник при дороге", 2, false),
+    new("Дорожки для всадников", 2, false),
+
+    };
+            string[] words = hash.Split('-');
+            string genType=words[1];
+            int questionIndex;
+            String question;
+            String[] answers;
+            int rightAnswer;
+            if (genType == "G2")
+            {
+                int wordNum = int.Parse(words[2]);
+                string word = mas[wordNum].text; //надо будет заменить на чтение из БД
+                question = "Являются ли " + word.ToLower() + " " + mas[0].text;
+                answers = new string[2];
+                answers[0] = "Являются.";
+                answers[1] = "Не являются";
+                rightAnswer = int.Parse(words[3]);
+            }
+            else
+            {
+                questionIndex = int.Parse(words[2]);
+                question = mas[questionIndex].text; //надо будет заменить на чтение из БД
+                int amountOfAnswers = words.Length-5;
+                answers = new String[amountOfAnswers];
+
+                for (int i = 0; i < amountOfAnswers; i++)
+                {
+                    int answersIndex = 0;
+                    string value = words[i + 4];
+                    if (words[i + 4] == $"A1") answers[i] = (i + 1) + ") " + "Все перечисленное";
+                    else if (words[i + 4] == $"A2") answers[i] = (i + 1) + ") " + "Ничего из перечисленного";
+                    else if (genType == "GX")
+                    {
+                        string[] ansNumbers = value.Split(',');
+                        int[] ans = new int[ansNumbers.Length];
+                        for (int j = 0; j < ans.Length; j++)
+                            ans[j] = int.Parse(ansNumbers[j]);
+                        string variant = "";
+                        for (int j = 0; j < ans.Length; j++)
+                            variant += (mas[ans[j]].text+", ");
+                        answers[i] = (i + 1) + ") "+variant;
+                    }
+                    else
+                    {
+                        answersIndex = int.Parse(words[i + 4]);
+                        answers[i] = (i+1)+") "+mas[answersIndex].text;//надо будет заменить на чтение из БД
+                    }
+                }
+                  rightAnswer = int.Parse(words[4 + amountOfAnswers]);
+            }
+               Question q = new Question(question, answers, rightAnswer, hash);
+                return q;
+            return null;
+        }
+
 
     }
 }

@@ -96,6 +96,7 @@ MyDataWithProbability[] mymas =
     new("30 = ",2,true,30)
 };
 Random n = new Random();
+
 Question[] l = Generator.GenerateParam(mymas, 5, 3);
 foreach(var m in l)
 {

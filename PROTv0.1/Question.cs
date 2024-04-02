@@ -30,7 +30,7 @@ namespace PROTv0._1
             Console.WriteLine(questionText);
             for (int i = 0; i < answers.Length; i++)
                 Console.WriteLine(answers[i]);
-            Console.WriteLine(correctAnswer +"\n"+QuestionHash);
+            Console.WriteLine("Номер правильного ответа: "+correctAnswer +"\n"+QuestionHash);
         }
     };
 }
