@@ -84,6 +84,11 @@ namespace PROTv0._1
             return questions1;
         }
 
+        /// <summary>
+        /// Generate a question from hash function
+        /// </summary>
+        /// <param name="hash">hash</param>
+        /// <Author>Nichiporuk Viktor</Author>
         public static Question degeneration (String hash)
         {
             //локальный массив для отладки метода
