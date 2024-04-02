@@ -60,7 +60,6 @@ namespace PROTv0._1
                 ans.Clear();
                 int i = a[rand.Next(a.Count)];
                 ans.Add(mas[i].text);
-                //Console.WriteLine($"1){mas[a[rand.Next(a.Count)]].text}");
                 MyHash += $"{i}-";
                 while (k-- > 0)
                 {
@@ -69,8 +68,6 @@ namespace PROTv0._1
                     ans.Add(AA.text);
                     MyHash += $"{b[IA]}-";
                     b.RemoveAt(IA);
-
-                    //Console.WriteLine($"T){AA.text}");
 
                 }
                 ans.Add(ANSW1);
@@ -89,13 +86,9 @@ namespace PROTv0._1
                 if (allOrNo == 0)//если как обчно
                 {
                     GenerateQuest1(a, b, k - 1);
-                    //   Console.WriteLine($"T)Все перечисленное");
-                    //    Console.WriteLine($"T)Ничего из перечисленного");
                 }
                 else if (allOrNo == 1)//если все являются
                 {
-
-                    //  MyHash += $"{k-2}-";
                     while (k-- > 0)
                     {
                         int IA = rand.Next(a.Count);
@@ -104,20 +97,16 @@ namespace PROTv0._1
                         ans2.Add(AA.text);
                         MyHash += $"{a[IA]}-";
                         a.RemoveAt(IA);
-                        //   Console.WriteLine($"T){AA.text}");
                     }
-                    //     Console.WriteLine($"1)Все перечисленное");
-                    //     Console.WriteLine($"T)Ничего из перечисленного");
                     ans2.Add(ANSW1);
                     ans2.Add(ANSW2);
                     MyHash += $"A1-";
                     MyHash += $"A2-";
-                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk - 2, MyHash + "A");
+                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk , MyHash + (kk ));
                     l++;
                 }
                 else if (allOrNo == 2)//если все не являются
                 {
-                    //  MyHash += $"{k-1}-";
                     while (k-- > 0)
                     {
                         int IA = rand.Next(b.Count);
@@ -125,15 +114,12 @@ namespace PROTv0._1
                         ans2.Add(AA.text);
                         MyHash += $"{b[IA]}-";
                         b.RemoveAt(IA);
-                        //    Console.WriteLine($"T){AA.text}");
                     }
                     ans2.Add(ANSW1);
                     ans2.Add(ANSW2);
                     MyHash += $"A1-";
                     MyHash += $"A2-";
-                    //  Console.WriteLine($"T)Все перечисленное");
-                    // Console.WriteLine($"1)Ничего из перечисленного");
-                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk - 1, MyHash + "B");
+                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk + 1, MyHash + (kk + 1));
                     l++;
                 }
 
@@ -144,18 +130,13 @@ namespace PROTv0._1
             while (amount-- > 0)
             {
                 MyHash = "DBNAME-G1-";
-                //  Console.WriteLine($"{amount}");
-                //     Console.WriteLine();
                 List<int> mT = intTrueAns.Slice(0, intTrueAns.Count);
                 List<int> mF = intFalseAns.Slice(0, intFalseAns.Count);
                 int k = rand.Next(4, ogr);
                 int IQ = rand.Next(intQuest.Count);
                 var AQ = mas[intQuest[IQ]];
-                //intQuest.RemoveAt(IQ);
                 MyHash += $"{IQ}-{k + 2}-";
-                //intQuest.RemoveAt(IQ);
                 AQQQQ = AQ.text;
-                //   Console.WriteLine($"{AQ.text}");
                 if (!AQ.flag)
                 {
                     GenerateQuest(mF, mT, k);
@@ -312,7 +293,7 @@ namespace PROTv0._1
                     ans2.Add(ANSW2);
                     myHash += $"A1-";
                     myHash += $"A2-";
-                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk - 2, myHash + "A");
+                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk , myHash + (kk));
                     l++;
                 }
                 else if (allOrNo == 2)//если все не являются
@@ -351,7 +332,7 @@ namespace PROTv0._1
                     ans2.Add(ANSW2);
                     myHash += $"A1-";
                     myHash += $"A2-";
-                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk - 1, myHash + "B");
+                    questions[l] = new Question(AQQQQ, ans2.ToArray(), kk + 1, myHash + (kk + 1));
                     l++;
                 }
 

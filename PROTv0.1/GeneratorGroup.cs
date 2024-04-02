@@ -196,7 +196,7 @@ namespace PROTv0._1
                     Console.WriteLine(Convert.ToString(n) + " " + str);
                 }
                 Console.WriteLine();
-                questions[l] = new Question(AQQQQ, GroupOfAnswers.ToArray(), IndAnswer, MyHash + "0");
+                questions[l] = new Question(AQQQQ, GroupOfAnswers.ToArray(), IndAnswer, MyHash + "-0");
                 l++;
                 GroupOfAnswers.Clear();
                 MyHash += "-0";
@@ -447,7 +447,7 @@ namespace PROTv0._1
                     Console.WriteLine(Convert.ToString(n) + " " + str);
                 }
                 Console.WriteLine();
-                questions[l] = new Question(AQQQQ, GroupOfAnswers.ToArray(), IndAnswer, MyHash + "0");
+                questions[l] = new Question(AQQQQ, GroupOfAnswers.ToArray(), IndAnswer, MyHash + "-0");
                 l++;
                 GroupOfAnswers.Clear();
                 MyHash += "-0";

@@ -75,9 +75,12 @@ var mas2 = new MyDataWithProbability[]{
     new("В обратном направлении", 2, false, 0.5)
     };
 Random n = new Random();
-Generator.GenerateLinear(mas2, 5, 10, false);
-//Generator.GenerateEnum(mas2, 5, 10);
-Question q = new Question("sd", null, 1, "sdas");
+Console.WriteLine("Сгенерирован генератором:\n");
+Question[] q=Generator.GenerateIsIt(mas, 5);
+q[0].print();
+Console.WriteLine("\nРаскодирован из хэша:\n");
+Question qq=Generator.degeneration(q[0].QuestionHash);
+qq.print();
 
 
 
