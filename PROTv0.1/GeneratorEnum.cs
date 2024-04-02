@@ -227,7 +227,7 @@ namespace PROTv0._1
                 myHash += $"{i}-";
                 List<int> appearedAnswers = new List<int>();
                 int ca = 0;
-                while (k-- > 0)
+                while (k-- > 0 && ca < k)
                 {
                     if (b.Count == 0) break;
                     int IA = rand.Next(b.Count);
@@ -277,7 +277,7 @@ namespace PROTv0._1
                 {
                     List<int> appearedAnswers = new List<int>();
                     int ca = 0;
-                    while (k-- > -1)
+                    while (k-- > 0 && ca < k)
                     {
                         if (a.Count == 0) break;
                         int IA = rand.Next(a.Count);
@@ -290,7 +290,6 @@ namespace PROTv0._1
                             {
                                 ans2.Add(AA.text);
                                 myHash += $"{a[IA]}-";
-                      //          Console.WriteLine($"T){AA.text}");
                                 ca++;
                                 appearedAnswers.Add(a[IA]);
                                 a.RemoveAt(IA);
@@ -319,7 +318,7 @@ namespace PROTv0._1
                 else if (allOrNo == 2)//если все не являются
                 {
                     int ca = 0;
-                    while (k-- > -1)
+                    while (k-- > 0&&ca<k)
                     {
                         if (b.Count == 0) break;
                         int IA = rand.Next(b.Count);
