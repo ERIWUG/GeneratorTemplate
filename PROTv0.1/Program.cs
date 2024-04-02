@@ -68,7 +68,7 @@ var mas2 = new MyDataWithProbability[]{
     //бессмысленный короткий массив данных для отладки, чтоб увидеть результат
 };
 Random n = new Random();
-Generator.GenerateGroup(mas, 5, 10);
+Generator.GenerateGroup(mas2, 5, 10);
 //Generator.GenerateEnum(mas2, 5, 10);
 Question q = new Question("sd", null, 1, "sdas");
 

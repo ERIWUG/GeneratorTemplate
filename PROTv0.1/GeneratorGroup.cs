@@ -447,9 +447,9 @@ namespace PROTv0._1
                         }
                     }
                 }
-                IndexOfCorrectAnswer = Shuffling(GroupOfAnswers, IndexOfCorrectAnswer);
+                IndexOfCorrectAnswer = 0;
                 int n = 0;
-                IndexOfCorrectAnswer=Shuffling(GroupOfAnswers,0);
+                IndexOfCorrectAnswer = Shuffling(GroupOfAnswers, IndexOfCorrectAnswer);
 
                 foreach (string str in GroupOfAnswers)
                 {
