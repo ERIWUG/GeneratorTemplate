@@ -58,7 +58,8 @@ namespace PROTv0._1
                 {
                     IndexAnswer = m.Next(0, NowAnswerIndex.Count);
                     paramValue = mas[NowAnswerIndex[IndexAnswer]].probability;
-                    paramValue = Math.Round((m.NextDouble() + 0.1) * paramValue * 0.1,1,MidpointRounding.ToEven);
+                    paramValue += Math.Round((m.NextDouble() + 0.1) * paramValue * 0.5,1,MidpointRounding.ToEven);
+                    paramValue = Math.Round(paramValue, 1);
                     HashString += $"{IndexAnswer};{paramValue}-";
 
                     AnswersInQuestion.Add($"{mas[NowAnswerIndex[IndexAnswer]].text} - {paramValue}");
@@ -84,6 +85,7 @@ namespace PROTv0._1
                 QuestionIndex.RemoveAt(DeletedIndex);
                 HashString += $"{DeletedIndex}-";
                 q[GeneretedQuestionIndex] = GenerateAnswers(HashString,QuestionText);
+                GeneretedQuestionIndex++;
             }
 
             return q;
