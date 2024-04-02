@@ -74,13 +74,38 @@ var mas2 = new MyDataWithProbability[]{
     new("На разворот", 2, false, 1),
     new("В обратном направлении", 2, false, 0.5)
     };
+
+MyDataWithProbability[] mymas =
+{
+    new("Что из перечисленного верно? var1",1,true,0),
+    new("Что из перечисленного верно? var2",1,true,0),
+    new("Что из перечисленного верно? var3",1,true,0),
+    new("Что из перечисленного верно? var4",1,true,0),
+    new("Что из перечисленного верно? var5",1,true,0),
+
+
+    new("10 = ",2,true,10),
+    new("15 = ",2,true,15),
+    new("20 = ",2,true,20),
+    new("1.2 = ",2,true,1.2),
+    new("1.5 = ",2,true,1.5),
+    new("150 = ",2,true,150),
+    new("0.5 = ",2,true,0.5),
+    new("3.2 = ",2,true,3.2),
+    new("300 = ",2,true,300),
+    new("30 = ",2,true,30)
+};
 Random n = new Random();
-Console.WriteLine("Сгенерирован генератором:\n");
-Question[] q=Generator.GenerateIsIt(mas, 5);
-q[0].print();
-Console.WriteLine("\nРаскодирован из хэша:\n");
-Question qq=Generator.degeneration(q[0].QuestionHash);
-qq.print();
+
+Question[] l = Generator.GenerateParam(mymas, 5, 3);
+foreach(var m in l)
+{
+    Console.WriteLine(m.QuestionHash);
+    foreach(var ans in m.answers)
+    {
+        Console.WriteLine(ans);
+    }
+}
 
 
 
