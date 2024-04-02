@@ -51,10 +51,10 @@ namespace PROTv0._1
                 HashString += $"{IndexAnswer};{mas[NowAnswerIndex[IndexAnswer]].probability}-";
                 AnswersInQuestion.Add($"{mas[NowAnswerIndex[IndexAnswer]].text} - {mas[NowAnswerIndex[IndexAnswer]].probability}");
                 NowAnswerIndex.RemoveAt(IndexAnswer);
-                ogr--;
+                int AmountQuestionWithOgr = m.Next(2, ogr);
 
 
-                while (ogr-- > 0)
+                while (AmountQuestionWithOgr-- > 0)
                 {
                     IndexAnswer = m.Next(0, NowAnswerIndex.Count);
                     paramValue = mas[NowAnswerIndex[IndexAnswer]].probability;

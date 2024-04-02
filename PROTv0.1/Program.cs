@@ -96,9 +96,15 @@ MyDataWithProbability[] mymas =
     new("30 = ",2,true,30)
 };
 Random n = new Random();
-Generator.GenerateGroup(mas2, 5, 10);
-//Generator.GenerateEnum(mas2, 5, 10);
-Question q = new Question("sd", null, 1, "sdas");
+Question[] l = Generator.GenerateParam(mymas, 5, 1);
+foreach(var m in l)
+{
+    Console.WriteLine(m.QuestionHash);
+    foreach(var ans in m.answers)
+    {
+        Console.WriteLine(ans);
+    }
+}
 
 
 
