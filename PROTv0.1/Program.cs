@@ -97,15 +97,17 @@ MyDataWithProbability[] mymas =
 };
 Random n = new Random();
 
-Question[] l = Generator.GenerateParam(mymas, 5, 3);
-foreach(var m in l)
-{
-    Console.WriteLine(m.QuestionHash);
-    foreach(var ans in m.answers)
-    {
-        Console.WriteLine(ans);
-    }
-}
+//Question[] l = Generator.GenerateParam(mymas, 5, 3);
+//foreach(var m in l)
+//{
+//    Console.WriteLine(m.QuestionHash);
+//    foreach(var ans in m.answers)
+//    {
+//        Console.WriteLine(ans);
+//    }
+//}
+
+Generator.GenerateGroup(mas, 5, 10);
 
 
 
