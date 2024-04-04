@@ -17,12 +17,13 @@ namespace PROTv0._1
     /// <Author>Belyi Egor</Author>
     public static partial class Generator
     {
+
         /// <summary>
         /// Метод для перемешки списка ответов
         /// </summary>
         /// <param name="originalList"></param>
         /// <Author>Veremeychik Alex</Author>
-        public static int Shuffling(List<string> originalList,int index)
+        public static int Shuffling(List<string> originalList,int index, List<string> HashShufflingList)
         {
 
             Random random = new Random();
@@ -34,6 +35,10 @@ namespace PROTv0._1
                 string temp = originalList[j];
                 originalList[j] = originalList[i];
                 originalList[i] = temp;
+                temp = HashShufflingList[j];
+                HashShufflingList[j] = HashShufflingList[i];
+                HashShufflingList[i]= temp;
+
                 if (i == index)
                 {
                     
